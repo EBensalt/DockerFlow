@@ -12,8 +12,6 @@ RUN		["openssl", "req", "-x509", "-nodes", "-newkey", "rsa:2048", "-keyout", "/e
 
 COPY	config/nginx.conf /etc/nginx/conf.d/
 
-COPY	tools/ /var/www/html/tools/
-
 EXPOSE	443
 
-# CMD		["nginx", "-g", "daemon off;"]
+CMD		["nginx", "-g", "daemon off;"]

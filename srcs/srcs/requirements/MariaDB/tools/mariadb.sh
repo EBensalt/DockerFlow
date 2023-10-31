@@ -13,9 +13,9 @@ y
 y
 EOF
 mariadb << EOF
-create database test;
-create user 'test'@'%' identified by 'Mehdi1337';
-grant all privileges on test.* to 'test'@'%';
+create database wordpress;
+create user 'ebensalt'@'%' identified by 'Mehdi1337';
+grant all privileges on wordpress.* to 'ebensalt'@'%';
 flush privileges;
 exit
 EOF
