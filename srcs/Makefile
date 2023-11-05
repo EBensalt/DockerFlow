@@ -1,16 +1,11 @@
-images				= $(shell docker images -aq)
-containers			= $(shell docker ps -aq)
-volumes				= $(shell docker volume ls -q)
-running_containers	= $(shell docker ps -q)
-
 all		:
-	docker system df
-	docker network ls
+	if [ -d "/home/test/data" ]; then echo "data folder exists"; else mkdir /home/test/data; fi
+	if [ -d "/home/test/data/wordpress" ]; then echo "wordpress files exists"; else mkdir /home/test/data/wordpress; fi
+	if [ -d "/home/test/data/mariadb" ]; then echo "wordpress database exists"; else mkdir /home/test/data/mariadb; fi
+	docker-compose -f srcs/docker-compose.yml up -d --build
 clean	:
-	-docker stop $(running_containers)
-	-docker rmi -f $(images)
-	-docker rm -f $(containers)
+	docker-compose -f srcs/docker-compose.yml down --rmi all -v
 fclean	: clean
-	-docker volume rm -f $(volumes)
 	docker builder prune -f
+	sudo rm -rf /home/test/data
 re		: fclean all

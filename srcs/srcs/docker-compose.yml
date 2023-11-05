@@ -1,1 +1,55 @@
-
+version: "3.8"
+services:
+  inception_nginx:
+    depends_on:
+      - inception_wordpress
+    build: requirements/NGINX/
+    image: nginx
+    ports:
+      - 443:443
+    networks:
+      - inception_network
+    volumes:
+      - /home/test/data/wordpress:/var/www/html
+    container_name: nginx_container
+    restart: on-failure
+  inception_wordpress:
+    depends_on:
+      - inception_mariadb
+    build: requirements/WordPress/
+    image: wordpress
+    env_file:
+      - .env
+    networks:
+      - inception_network
+    volumes:
+      - wordpress_volume:/var/www/html
+    container_name: wordpress_container
+    restart: on-failure
+  inception_mariadb:
+    build: requirements/MariaDB/
+    image: mariadb
+    env_file:
+      - .env
+    networks:
+      - inception_network
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    container_name: mariadb_container
+    restart: on-failure
+networks:
+  inception_network:
+    name: inception_network
+volumes:
+  mariadb_volume:
+    name: mariadb_volume
+    driver_opts:
+      type: "none"
+      device: "/home/test/data/mariadb"
+      o: "bind"
+  wordpress_volume:
+    name: wordpress_volume
+    driver_opts:
+      type: "none"
+      device: "/home/test/data/wordpress"
+      o: "bind"

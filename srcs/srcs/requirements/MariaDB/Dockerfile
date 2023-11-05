@@ -12,4 +12,6 @@ COPY	/config/mariadb.cnf /etc/mysql/mariadb.conf.d/
 
 RUN		["chmod", "+x", "mariadb.sh"]
 
+EXPOSE	3306
+
 CMD		["./mariadb.sh"]
