@@ -10,7 +10,7 @@ services:
     networks:
       - inception_network
     volumes:
-      - /home/test/data/wordpress:/var/www/html
+      - /home/ebensalt/data/wordpress:/var/www/html
     container_name: nginx_container
     restart: on-failure
   inception_wordpress:
@@ -45,11 +45,11 @@ volumes:
     name: mariadb_volume
     driver_opts:
       type: "none"
-      device: "/home/test/data/mariadb"
+      device: "/home/ebensalt/data/mariadb"
       o: "bind"
   wordpress_volume:
     name: wordpress_volume
     driver_opts:
       type: "none"
-      device: "/home/test/data/wordpress"
+      device: "/home/ebensalt/data/wordpress"
       o: "bind"
