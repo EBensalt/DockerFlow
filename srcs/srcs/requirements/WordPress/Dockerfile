@@ -4,7 +4,7 @@ RUN		["apt", "update"]
 
 RUN		["apt", "upgrade", "-y"]
 
-RUN		["apt", "install", "php-fpm", "wget", "php-mysql", "curl", "-y"]
+RUN		["apt", "install", "php-fpm", "wget", "php-mysql", "curl", "php-redis", "-y"]
 
 COPY	config/z-php-fpm.conf /etc/php/7.4/fpm/pool.d/
 

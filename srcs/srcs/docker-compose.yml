@@ -16,6 +16,7 @@ services:
   inception_wordpress:
     depends_on:
       - inception_mariadb
+      - inception_bonus_redis
     build: requirements/WordPress/
     image: wordpress
     env_file:
@@ -37,6 +38,13 @@ services:
       - mariadb_volume:/var/lib/mysql
     container_name: mariadb_container
     restart: on-failure
+  inception_bonus_redis:
+     build: requirements/Bonus/redis/
+     image: redis
+     networks:
+       - inception_network
+     container_name: redis_container
+     restart: on-failure
 networks:
   inception_network:
     name: inception_network
