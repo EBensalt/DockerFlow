@@ -6,7 +6,6 @@ then echo "files already done"
 else
 wget -P /var/www/html https://wordpress.org/latest.tar.gz
 tar -C /var/www/html -xzf /var/www/html/latest.tar.gz
-chown -R www-data:www-data /var/www/html/wordpress
 rm -rf /var/www/html/latest.tar.gz
 mv /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -22,6 +21,7 @@ wp core install --url="ebensalt.42.fr" --title="Inception" --admin_user="$WORDPR
 wp user create $WORDPRESS_TEST_USER $WORDPRESS_TEST_EMAIL --user_pass="$WORDPRESS_TEST_PASSWORD" --allow-root --path="/var/www/html/wordpress"
 wp plugin install redis-cache --force --activate --allow-root --path="/var/www/html/wordpress"
 wp redis enable --allow-root --path="/var/www/html/wordpress"
+chown -R www-data:www-data /var/www/html/wordpress
 fi
 service php7.4-fpm stop
 exec php-fpm7.4 -F
